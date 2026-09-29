@@ -1,0 +1,4 @@
+data/
+*.npy
+*.csv
+*.txt
