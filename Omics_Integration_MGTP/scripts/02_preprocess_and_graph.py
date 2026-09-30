@@ -57,9 +57,9 @@ def main():
     ge_aligned = ge_pivot.reindex(master_ids).fillna(0).values
     print(f"  => Kích thước ma trận Ge ban đầu: {ge_aligned.shape}")
     
-    # Dùng chuẩn PCA của scikit-learn
+    # Dùng chuẩn PCA của scikit-learn với seed cố định để đảm bảo ổn định
     print("  - Đang chạy scikit-learn PCA để giảm chiều Ge xuống 512 chiều...")
-    pca = PCA(n_components=512)
+    pca = PCA(n_components=512, random_state=42)
     ge_reduced = pca.fit_transform(ge_aligned)
     print(f"  => Kích thước ma trận Ge sau PCA: {ge_reduced.shape}")
     np.save('../data/processed/Ge_features.npy', ge_reduced)

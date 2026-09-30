@@ -4,6 +4,19 @@ import torch.nn.functional as F
 import numpy as np
 import pandas as pd
 import os
+import random
+
+def set_seed(seed=42):
+    random.seed(seed)
+    os.environ['PYTHONHASHSEED'] = str(seed)
+    np.random.seed(seed)
+    torch.manual_seed(seed)
+    if torch.cuda.is_available():
+        torch.cuda.manual_seed(seed)
+        torch.cuda.manual_seed_all(seed)
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
+
 
 # ==========================================
 # CÁC HÀM TẠO ĐỒ THỊ CHUẨN (TỪ UTILS.PY BẢN GỐC)
@@ -116,6 +129,7 @@ class GraphOmicsMultiGCNEncoder(nn.Module):
 # HÀM MAIN
 # ==========================================
 def main():
+    set_seed(42)
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
     print(f"Đang chạy trên thiết bị: {device}")
 
